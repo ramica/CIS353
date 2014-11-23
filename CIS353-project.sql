@@ -10,11 +10,16 @@ CIS 353 - Database Design Project
 **************************************/
 --
 SET FEEDBACK OFF
+DROP TABLE Sponsors;
+DROP TABLE Event;
+DROP TABLE Athlete;
+--DROP TABLE Spectator;
+DROP TABLE Ticket;
+DROP TABLE Country;
 --
 -- ------------------------------------
 -- Event table
 -- ------------------------------------
-DROP TABLE Event;
 -- 
 CREATE TABLE Event
 (
@@ -34,12 +39,11 @@ CONSTRAINT EC3 CHECK (event_date BETWEEN date '2016-08-05' AND date '2016-08-21'
 -- ------------------------------------
 -- Sponsors table
 -- ------------------------------------
-DROP TABLE Sponsors;
 --
 CREATE TABLE Sponsors
 (
 eid INTEGER,
-sponsor_name CHAR NOT NULL,
+sponsor_name CHAR(20) NOT NULL,
 --
 -- SC1: Event ID and sponsor name are the primary key of Sponsors
 CONSTRAINT SC1 PRIMARY KEY (eid, sponsor_name),
@@ -47,13 +51,12 @@ CONSTRAINT SC1 PRIMARY KEY (eid, sponsor_name),
 -- On deletion it will cascade.
 CONSTRAINT SC2 FOREIGN KEY (eid) REFERENCES Event(eid)
     ON DELETE CASCADE
-    DEFERABLE INITIALLY DEFERRED
+    DEFERRABLE INITIALLY DEFERRED
 );
 --
 -- ------------------------------------
 -- Athlete table
 -- ------------------------------------
-DROP TABLE Athlete;
 --
 CREATE TABLE Athlete
 (
@@ -62,25 +65,22 @@ lname CHAR(10) NOT NULL,
 fname CHAR(10) NOT NULL,
 --
 --
-CONSTRAINT AC1 PRIMARY KEY (aid),
-CONSTRAINT AC2 CHECK()
+CONSTRAINT AC1 PRIMARY KEY (aid)
 );
 --
-DROP TABLE Country;
 --
 CREATE TABLE Country
 (
-cname CHAR(15) NOT NULL,
+cname VARCHAR2(15) NOT NULL,
 population INTEGER,
 --
 --
-CONSTRAINT CC1 PRIMARY KEY (cname),
+CONSTRAINT CC1 PRIMARY KEY (cname)
 );
 --
 -- ------------------------------------
 -- Spectator table
 -- ------------------------------------
-DROP TABLE Spectator;
 --
 CREATE TABLE Spectator
 (
@@ -89,66 +89,64 @@ lname CHAR(10) NOT NULL,
 fname CHAR(10) NOT NULL,
 --
 --
-CONSTRAINT SPC1 PRIMARY KEY (sid),
+CONSTRAINT SPC1 PRIMARY KEY (sid)
 );
 -- ------------------------------------
 -- Ticket table
 -- ------------------------------------
-DROP TABLE Ticket;
 --
 CREATE TABLE Ticket
 (
-ticket_number INTEGER
-section_number INTEGER
+ticket_number INTEGER,
+section_number INTEGER,
 price INTEGER
 --
 );
 --
+SET AUTOCOMMIT OFF
 SET FEEDBACK ON
 --
-INSERT INTO EVENTS VALUES (34567,06/12/2016,987);
-INSERT INTO EVENTS VALUES (67895, 06/12/2016, 67);
-INSERT INTO EVENTS VALUES (34598, 06/09/2016 , 5);
+INSERT INTO Event VALUES (34567, '20160806',987);
+INSERT INTO Event VALUES (67895, '20160808', 67);
+INSERT INTO Event VALUES (34598, '20160813', 5);
 --
-INSERT INTO COUNTRY VALUES('United States', 319134000);
-INSERT INTO COUNTRY VALUES('China', 1368030000 );
-INSERT INTO COUNTRY VALUES('India', 1262860000 );
-INSERT INTO COUNTRY VALUES('Indonesia', 252164800 );
-INSERT INTO COUNTRY VALUES('Brazil', 203481000 );
-INSERT INTO COUNTRY VALUES('Pakistan', 18829000 );
-INSERT INTO COUNTRY VALUES('Nigeria' 178517000 );
-INSERT INTO COUNTRY VALUES('Bangladesh', 157362000 );
-INSERT INTO COUNTRY VALUES('Russia', 146146200 );
-INSERT INTO COUNTRY VALUES('Japan', 127090000 );
-INSERT INTO COUNTRY VALUES('Philippines', 100588600 );
-INSERT INTO COUNTRY VALUES('Mexico',119713203 );
-INSERT INTO COUNTRY VALUES('Vietnam' , 89708900 );
-INSERT INTO COUNTRY VALUES('Ethiopia', 87952991);
-INSERT INTO COUNTRY VALUES('Egypt', 8754400 );
-INSERT INTO COUNTRY VALUES('Germany', 80767000 );
-INSERT INTO COUNTRY VALUES('Iran', 77912500 );
-INSERT INTO COUNTRY VALUES('Turkey', 76667864  );
-INSERT INTO COUNTRY VALUES('France', 66050000 );
-INSERT INTO COUNTRY VALUES('Thailand',64871000 );
-INSERT INTO COUNTRY VALUES('United Kingdom',64105654  );
-INSERT INTO COUNTRY VALUES('Italy',60783711  );
-INSERT INTO COUNTRY VALUES('South Africa',54002000 );
-INSERT INTO COUNTRY VALUES('South Korea',5423955  );
-INSERT INTO COUNTRY VALUES('Colombia', 47875800 );
-INSERT INTO COUNTRY VALUES('Tanzania',47421786 );
-INSERT INTO COUNTRY VALUES('Spain' , 46507760);
-INSERT INTO COUNTRY VALUES('Ukraine',42973696);
-INSERT INTO COUNTRY VALUES('Argentina' ,42669500 );
-INSERT INTO COUNTRY VALUES('Kenya',41800000 );
-INSERT INTO COUNTRY VALUES('Canada', 35540419);
-INSERT INTO COUNTRY VALUES('Cameroon', 20386799 );
-INSERT INTO COUNTRY VALUES('Portugal', 10477800 );
-INSERT INTO COUNTRY VALUES('Jamaica' , 2717991);
-INSERT INTO COUNTRY VALUES('Sweden',9728498 );
-INSERT INTO COUNTRY VALUES('Belgium',11225469);
+INSERT INTO Country VALUES('United States', 319134000);
+INSERT INTO Country VALUES('China', 1368030000 );
+INSERT INTO Country VALUES('India', 1262860000 );
+INSERT INTO Country VALUES('Indonesia', 252164800 );
+INSERT INTO Country VALUES('Brazil', 203481000 );
+INSERT INTO Country VALUES('Pakistan', 18829000 );
+INSERT INTO Country VALUES('Nigeria', 178517000 );
+INSERT INTO Country VALUES('Bangladesh', 157362000 );
+INSERT INTO Country VALUES('Russia', 146146200 );
+INSERT INTO Country VALUES('Japan', 127090000 );
+INSERT INTO Country VALUES('Philippines', 100588600 );
+INSERT INTO Country VALUES('Mexico',119713203 );
+INSERT INTO Country VALUES('Vietnam' , 89708900 );
+INSERT INTO Country VALUES('Ethiopia', 87952991);
+INSERT INTO Country VALUES('Egypt', 8754400 );
+INSERT INTO Country VALUES('Germany', 80767000 );
+INSERT INTO Country VALUES('Iran', 77912500 );
+INSERT INTO Country VALUES('Turkey', 76667864  );
+INSERT INTO Country VALUES('France', 66050000 );
+INSERT INTO Country VALUES('Thailand',64871000 );
+INSERT INTO Country VALUES('United Kingdom',64105654  );
+INSERT INTO Country VALUES('Italy',60783711  );
+INSERT INTO Country VALUES('South Africa',54002000 );
+INSERT INTO Country VALUES('South Korea',5423955  );
+INSERT INTO Country VALUES('Colombia', 47875800 );
+INSERT INTO Country VALUES('Tanzania',47421786 );
+INSERT INTO Country VALUES('Spain' , 46507760);
+INSERT INTO Country VALUES('Ukraine',42973696);
+INSERT INTO Country VALUES('Argentina' ,42669500 );
+INSERT INTO Country VALUES('Kenya',41800000 );
+INSERT INTO Country VALUES('Canada', 35540419);
+INSERT INTO Country VALUES('Cameroon', 20386799 );
+INSERT INTO Country VALUES('Portugal', 10477800 );
+INSERT INTO Country VALUES('Jamaica' , 2717991);
+INSERT INTO Country VALUES('Sweden',9728498 );
+INSERT INTO Country VALUES('Belgium',11225469);
 --
-COMMIT
---
-COMMIT
+COMMIT;
 SPOOL OFF
 --
