@@ -13,7 +13,7 @@ SET FEEDBACK OFF
 DROP TABLE Sponsors;
 DROP TABLE Event;
 DROP TABLE Athlete;
---DROP TABLE Spectator;
+DROP TABLE Spectator;
 DROP TABLE Ticket;
 DROP TABLE Country;
 --
@@ -24,7 +24,7 @@ DROP TABLE Country;
 CREATE TABLE Event
 (
 eid INTEGER,
-event_date date NOT NULL,
+event_date DATE NOT NULL,
 empty_seats INTEGER NOT NULL,
 --
 -- EC1: The event id (eid) is the primary key of Event
@@ -33,7 +33,7 @@ CONSTRAINT EC1 PRIMARY KEY (eid),
 CONSTRAINT EC2 CHECK (empty_seats <= 10000 AND empty_seats >= 0),
 -- EC3: Checks that the date of the event is within a valid range
 -- for the 2016 summer Olympics (08/05/2016 - 08/21/2016)
-CONSTRAINT EC3 CHECK (event_date BETWEEN date '2016-08-05' AND date '2016-08-21')
+CONSTRAINT EC3 CHECK(TO_CHAR(event_date, 'YYYY-MM-DD') >= '2016-08-05')
 );
 --
 -- ------------------------------------
@@ -84,7 +84,7 @@ CONSTRAINT CC1 PRIMARY KEY (cname)
 --
 CREATE TABLE Spectator
 (
-sid INTEGER
+sid INTEGER,
 lname CHAR(10) NOT NULL,
 fname CHAR(10) NOT NULL,
 --
@@ -104,11 +104,10 @@ price INTEGER
 );
 --
 SET AUTOCOMMIT OFF
-SET FEEDBACK ON
 --
-INSERT INTO Event VALUES (34567, '20160806',987);
-INSERT INTO Event VALUES (67895, '20160808', 67);
-INSERT INTO Event VALUES (34598, '20160813', 5);
+INSERT INTO Event VALUES (34567, '06-AUG-16',987);
+INSERT INTO Event VALUES (67895, '08-AUG-16', 67);
+INSERT INTO Event VALUES (34598, '13-AUG-16', 5);
 --
 INSERT INTO Country VALUES('United States', 319134000);
 INSERT INTO Country VALUES('China', 1368030000 );
@@ -148,5 +147,9 @@ INSERT INTO Country VALUES('Sweden',9728498 );
 INSERT INTO Country VALUES('Belgium',11225469);
 --
 COMMIT;
+-- ------------------------------------
+SELECT * FROM Event;
+SELECT C.cname FROM Country C
+WHERE C.population > 100000000;
 SPOOL OFF
 --
