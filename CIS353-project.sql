@@ -105,6 +105,8 @@ price INTEGER
 --
 SET AUTOCOMMIT OFF
 --
+
+--
 INSERT INTO Event VALUES (34567, '06-AUG-16',987);
 INSERT INTO Event VALUES (67895, '08-AUG-16', 67);
 INSERT INTO Event VALUES (34598, '13-AUG-16', 5);
@@ -145,6 +147,7 @@ INSERT INTO Country VALUES('Portugal', 10477800 );
 INSERT INTO Country VALUES('Jamaica' , 2717991);
 INSERT INTO Country VALUES('Sweden',9728498 );
 INSERT INTO Country VALUES('Belgium',11225469);
+INSERT INTO Country VALUES( 'Ghana' , 27043093)
 --
 COMMIT;
 -- ------------------------------------
