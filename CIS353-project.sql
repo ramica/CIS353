@@ -155,4 +155,15 @@ SELECT * FROM Event;
 SELECT C.cname FROM Country C
 WHERE C.population > 100000000;
 SPOOL OFF
+
+--MAX
+SELECT cname, MAX(population)
+FROM country;
+
+--SELF-JOIN
+SELECT a1.lname, a2.lname
+from athlete a1, sthlete a2
+where a1.lname = a2.lname AND
+a1.aid < a2.aid;
+
 --
